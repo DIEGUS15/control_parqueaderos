@@ -57,13 +57,13 @@ model RegistroVehiculo {
   @@map("registro_vehiculos")
 }
 
-// Nueva tabla para el historial
 model HistorialVehiculo {
   id          Int      @id @default(autoincrement())
   placa       String   
   parqueaderoId Int
   fechaIngreso DateTime
   fechaSalida DateTime
+  montoTotal  Decimal  @db.Decimal(10, 2)
   createdAt   DateTime @default(now())
 
   parqueadero Parqueadero @relation(fields: [parqueaderoId], references: [id], onDelete: Restrict)

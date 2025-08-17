@@ -57,7 +57,6 @@ export const createParqueaderoSchema = z.object({
   activo: z.boolean().optional(), // Opcional, por defecto será true
 });
 
-// Schema para actualizar - todos los campos son opcionales
 export const updateParqueaderoSchema = z
   .object({
     nombre: z
