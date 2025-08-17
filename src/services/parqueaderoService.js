@@ -13,6 +13,7 @@ import {
   SocioNotFoundException,
   InvalidSocioRoleException,
   SocioNotSocioRoleException,
+  ParqueaderoHasActiveVehiclesException,
 } from "../exceptions/parqueaderoExceptions.js";
 
 export class ParqueaderoService {
@@ -155,6 +156,43 @@ export class ParqueaderoService {
       updatedParqueadero,
       "Parqueadero updated successfully"
     );
+  }
+
+  async deleteParqueadero(id) {
+    const existingParqueadero = await this.parqueaderoRepository.findById(id);
+
+    if (!existingParqueadero) {
+      throw new ParqueaderoNotFoundException();
+    }
+
+    // Verificar si el parqueadero ya está inactivo (ya eliminado)
+    if (!existingParqueadero.activo) {
+      throw new ParqueaderoAlreadyExistsException(
+        "El parqueadero ya está eliminado"
+      );
+    }
+
+    // Verificar si hay vehículos actualmente parqueados
+    const vehiculosActivos =
+      await this.parqueaderoRepository.countActiveVehicles(id);
+
+    if (vehiculosActivos > 0) {
+      throw new ParqueaderoHasActiveVehiclesException(
+        `No se puede eliminar el parqueadero. Hay ${vehiculosActivos} vehículo(s) actualmente parqueado(s).`
+      );
+    }
+
+    // Eliminación lógica: marcar como inactivo
+    const deletedParqueadero = await this.parqueaderoRepository.update(id, {
+      activo: false,
+    });
+
+    return {
+      id: deletedParqueadero.id,
+      nombre: deletedParqueadero.nombre,
+      activo: deletedParqueadero.activo,
+      message: "Parqueadero eliminado exitosamente",
+    };
   }
 
   async toggleParqueaderoStatus(id) {

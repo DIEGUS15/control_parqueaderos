@@ -17,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Barco dos\",\r\n    \"direccion\": \"Calle 31A #3E-108 La Cordialidad, Los Patios\",\r\n    \"capacidad\": 26,\r\n    \"costoPorHora\": 2687.25,\r\n    \"socioId\": 3\r\n\r\n}",
+							"raw": "{\r\n    \"nombre\": \"Nueva Floresta\",\r\n    \"direccion\": \"Calle 31A #3E-108 La Cordialidad, Los Patios\",\r\n    \"capacidad\": 26,\r\n    \"costoPorHora\": 2687.25,\r\n    \"socioId\": 4\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -75,7 +75,7 @@
 						"method": "PATCH",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/api/parqueadero/4/toggle",
+							"raw": "http://localhost:4000/api/parqueadero/1/toggle",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -84,7 +84,7 @@
 							"path": [
 								"api",
 								"parqueadero",
-								"4",
+								"1",
 								"toggle"
 							]
 						}
@@ -297,7 +297,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"diego@gmail.com\",\r\n  \"password\": \"Ab12345678.\"\r\n}",
+							"raw": "{\r\n  \"email\": \"admin@mail.com\",\r\n  \"password\": \"admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

@@ -14,6 +14,16 @@ export class ParqueaderoAlreadyExistsException extends Error {
   }
 }
 
+export class ParqueaderoHasActiveVehiclesException extends Error {
+  constructor(
+    message = "No se puede eliminar el parqueadero porque tiene vehículos activos"
+  ) {
+    super(message);
+    this.name = "ParqueaderoHasActiveVehiclesException";
+    this.statusCode = 400;
+  }
+}
+
 export class SocioNotFoundException extends Error {
   constructor(message = "Socio not found") {
     super(message);

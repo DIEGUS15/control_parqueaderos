@@ -89,6 +89,15 @@ export class ParqueaderoRepository {
     return parqueaderoData ? new Parqueadero(parqueaderoData) : null;
   }
 
+  async countActiveVehicles(parqueaderoId) {
+    return await prisma.registroVehiculo.count({
+      where: {
+        parqueaderoId: parseInt(parqueaderoId),
+        activo: true, // Vehículos que están actualmente dentro
+      },
+    });
+  }
+
   async create(createData) {
     const parqueaderoData = await prisma.parqueadero.create({
       data: createData,
