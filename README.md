@@ -189,6 +189,10 @@ control_parqueaderos/
 
 Descarga la colección desde [postman_collection.json](postman/Control-Parqueadero.postman_collection.json).
 
+## RUTA BASE:
+
+- http://localhost:4000/api
+
 ## 🔐 AUTENTICACIÓN
 
 ### Login
