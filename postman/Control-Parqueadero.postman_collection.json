@@ -1,0 +1,521 @@
+{
+	"info": {
+		"_postman_id": "527ddd9c-6644-4d8b-915a-2d2a3e42f852",
+		"name": "Control-Parqueadero",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44585085",
+		"_collection_link": "https://diegogranados-289261.postman.co/workspace/Diego-Granados's-Workspace~bfb304b6-8ac2-4d0f-8be4-298a903ab76f/collection/44585085-527ddd9c-6644-4d8b-915a-2d2a3e42f852?action=share&source=collection_link&creator=44585085"
+	},
+	"item": [
+		{
+			"name": "Parqueadero",
+			"item": [
+				{
+					"name": "Parqueadero",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Barco dos\",\r\n    \"direccion\": \"Calle 31A #3E-108 La Cordialidad, Los Patios\",\r\n    \"capacidad\": 26,\r\n    \"costoPorHora\": 2687.25,\r\n    \"socioId\": 3\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/parqueadero",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"parqueadero"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parqueadero",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Barco tres\",\r\n    \"direccion\": \"Calle 31A #3E-108 La Cordialidad, Los Patios\",\r\n    \"capacidad\": 20,\r\n    \"costoPorHora\": 5700,\r\n    \"socioId\": 3,\r\n    \"activo\": true\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/parqueadero/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"parqueadero",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/parqueadero/4/toggle",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"parqueadero",
+								"4",
+								"toggle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parqueadero",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/parqueadero",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"parqueadero"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parqueadero-stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/parqueadero/stats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"parqueadero",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parqueadero-socio",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/parqueadero/socio/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"parqueadero",
+								"socio",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parqueadero:ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/parqueadero/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"parqueadero",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehiculo",
+			"item": [
+				{
+					"name": "Vehiculo-entrada",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"placa\": \"HFE456\",\r\n  \"parqueaderoId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/vehiculo/ingreso",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"vehiculo",
+								"ingreso"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vehiculo-salida",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"placa\": \"ABC123\",\r\n  \"parqueaderoId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/vehiculo/salida",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"vehiculo",
+								"salida"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vehiculo: parqueadero-socio",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/vehiculo/socio/parqueadero/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"vehiculo",
+								"socio",
+								"parqueadero",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "vehiculos:parqueaderoId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/vehiculo/parqueadero/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"vehiculo",
+								"parqueadero",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"diego@gmail.com\",\r\n  \"password\": \"Ab12345678.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Juan Camilo Banguero Fonseca\",\r\n    \"email\": \"bame@gmail.com\",\r\n    \"password\": \"Ab12345678.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Indicadores",
+			"item": [
+				{
+					"name": "Indicadores-top-vehiculos-parqueaderos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/indicadores/top-vehiculos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"indicadores",
+								"top-vehiculos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Indicadores-buscar-especifico",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/indicadores/buscar/1?busqueda=H",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"indicadores",
+								"buscar",
+								"1"
+							],
+							"query": [
+								{
+									"key": "busqueda",
+									"value": "H"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Indicadores-buscar-placa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/indicadores/buscar?busqueda=H",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"indicadores",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "busqueda",
+									"value": "H"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Indicadores-ganancias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/indicadores/ganancias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"indicadores",
+								"ganancias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Indicadores-vehiculos-primera-vez",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/indicadores/vehiculos-primera-vez/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"indicadores",
+								"vehiculos-primera-vez",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Indicadores-top-vehiculos-parqueadero",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/indicadores/top-vehiculos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"indicadores",
+								"top-vehiculos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
