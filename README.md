@@ -212,12 +212,13 @@ Permisos: Público
 ```http
 POST /register
 Descripción: Registrar un nuevo usuario (socio)
+Cookies: token={jwt_token}
 Body: {
   "fullname": "Juan Camilo Banguero Fonseca",
   "email": "bame@gmail.com",
   "password": "Ab12345678."
 }
-Permisos: Público
+Permisos: admin
 ```
 
 ### Logout
@@ -225,7 +226,7 @@ Permisos: Público
 ```http
 POST /logout
 Descripción: Cerrar sesión actual
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Permisos: Usuario autenticado
 ```
 
@@ -238,7 +239,7 @@ Permisos: Usuario autenticado
 ```http
 POST /parqueadero
 Descripción: Crear un nuevo parqueadero
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Body: {
   "nombre": "Nueva Floresta",
   "direccion": "Calle 31A #3E-108 La Cordialidad, Los Patios",
@@ -254,7 +255,7 @@ Permisos: Admin
 ```http
 GET /parqueadero
 Descripción: Obtener lista de todos los parqueaderos
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Permisos: Admin
 ```
 
@@ -263,7 +264,7 @@ Permisos: Admin
 ```http
 GET /parqueadero/{id}
 Descripción: Obtener detalles de un parqueadero específico
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Ejemplo: GET /parqueadero/2
 Permisos: Admin
 ```
@@ -273,7 +274,7 @@ Permisos: Admin
 ```http
 PUT /parqueadero/{id}
 Descripción: Actualizar información de un parqueadero
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Body: {
   "nombre": "Barco tres",
   "direccion": "Calle 31A #3E-108 La Cordialidad, Los Patios",
@@ -291,7 +292,7 @@ Permisos: Admin
 ```http
 PATCH /parqueadero/{id}/toggle
 Descripción: Activar/desactivar un parqueadero
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Ejemplo: PATCH /parqueadero/1/toggle
 Permisos: Admin
 ```
@@ -301,7 +302,7 @@ Permisos: Admin
 ```http
 GET /parqueadero/stats
 Descripción: Obtener estadísticas generales de parqueaderos
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Permisos: Admin
 ```
 
@@ -310,7 +311,7 @@ Permisos: Admin
 ```http
 GET /parqueadero/socio/{socioId}
 Descripción: Obtener parqueaderos asociados a un socio específico
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Ejemplo: GET /parqueadero/socio/2
 Permisos: Admin
 ```
@@ -320,7 +321,7 @@ Permisos: Admin
 ```http
 DELETE /parqueadero/{id}
 Descripción: Eliminar un parqueadero específico
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Ejemplo: DELETE /parqueadero/3
 Permisos: Admin
 ```
@@ -330,7 +331,7 @@ Permisos: Admin
 ```http
 GET /parqueadero/mis-parqueaderos
 Descripción: Obtener todos los parqueaderos del socio autenticado
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Permisos: Socio
 ```
 
@@ -343,7 +344,7 @@ Permisos: Socio
 ```http
 POST /vehiculo/ingreso
 Descripción: Registrar la entrada de un vehículo al parqueadero
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Body: {
   "placa": "HFE456",
   "parqueaderoId": 2
@@ -356,7 +357,7 @@ Permisos: Socio
 ```http
 POST /vehiculo/salida
 Descripción: Registrar la salida de un vehículo del parqueadero
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Body: {
   "placa": "ABC123",
   "parqueaderoId": 1
@@ -369,7 +370,7 @@ Permisos: Socio
 ```http
 GET /vehiculo/parqueadero/{parqueaderoId}
 Descripción: Listar vehículos actualmente en un parqueadero específico
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Ejemplo: GET /vehiculo/parqueadero/1
 Permisos: Admin
 ```
@@ -379,7 +380,7 @@ Permisos: Admin
 ```http
 GET /vehiculo/socio/parqueadero/{parqueaderoId}
 Descripción: Listar vehículos en parqueadero propio del socio
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Ejemplo: GET /vehiculo/socio/parqueadero/2
 Permisos: Socio propietario
 ```
@@ -393,7 +394,7 @@ Permisos: Socio propietario
 ```http
 GET /indicadores/top-vehiculos
 Descripción: Top vehículos más registrados en todos los parqueaderos
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Permisos: Admin/Socio
 ```
 
@@ -402,7 +403,7 @@ Permisos: Admin/Socio
 ```http
 GET /indicadores/top-vehiculos/{parqueaderoId}
 Descripción: Top vehículos más registrados en un parqueadero específico
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Ejemplo: GET /indicadores/top-vehiculos/1
 Permisos: Admin/Socio propietario
 ```
@@ -412,7 +413,7 @@ Permisos: Admin/Socio propietario
 ```http
 GET /indicadores/buscar?busqueda={query}
 Descripción: Buscar vehículos por placa en todos los parqueaderos
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Query Parameters:
   - busqueda: string (parte de la placa a buscar)
 Ejemplo: GET /indicadores/buscar?busqueda=H
@@ -424,7 +425,7 @@ Permisos: Admin
 ```http
 GET /indicadores/buscar/{parqueaderoId}?busqueda={query}
 Descripción: Buscar vehículos por placa en un parqueadero específico
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Query Parameters:
   - busqueda: string (parte de la placa a buscar)
 Ejemplo: GET /indicadores/buscar/1?busqueda=H
@@ -436,7 +437,7 @@ Permisos: Admin/Socio propietario
 ```http
 GET /indicadores/ganancias/{parqueaderoId}
 Descripción: Obtener ganancias de un parqueadero (hoy/semana/mes/año)
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Ejemplo: GET /indicadores/ganancias/1
 Permisos: Admin/Socio propietario
 ```
@@ -446,7 +447,7 @@ Permisos: Admin/Socio propietario
 ```http
 GET /indicadores/vehiculos-primera-vez/{parqueaderoId}
 Descripción: Vehículos registrados por primera vez en el parqueadero
-Headers: Authorization: Bearer {token}
+Cookies: token={jwt_token}
 Ejemplo: GET /indicadores/vehiculos-primera-vez/2
 Permisos: Admin/Socio propietario
 ```
@@ -456,6 +457,8 @@ Permisos: Admin/Socio propietario
 ## 📝 Notas Importantes
 
 - NOTA: El Endpoint del microservicio de simulación de envío de Email se prueba dentro del Endpoint de registrar entradas y salidas de vehiculos
+
+- NOTA: El proyecto guarda el token en las cookies, al ejecutar el proyecto tener en cuanta hacer logout primero si se planea cambiar de rol o si se quiere probar el código sin estar logueado, esto con el fin de prevenir errores
 
 ### Autenticación
 
