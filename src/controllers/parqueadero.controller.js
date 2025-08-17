@@ -77,10 +77,8 @@ export const toggleParqueaderoStatus = async (req, res, next) => {
 
 export const getMyParqueaderos = async (req, res, next) => {
   try {
-    // El socioId se obtiene del token JWT (req.user viene del middleware authRequired)
     const socioId = req.user.id;
 
-    // Usar el mismo servicio pero con el ID del socio autenticado
     const result = await parqueaderoService.getParqueaderosBySocio(
       socioId,
       req.query.activo
@@ -91,8 +89,6 @@ export const getMyParqueaderos = async (req, res, next) => {
     next(error);
   }
 };
-
-// Agregar este método a tu parqueadero.controller.js
 
 export const deleteParqueadero = async (req, res, next) => {
   try {

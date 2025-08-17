@@ -28,11 +28,25 @@ export class UpdateParqueaderoDto {
 }
 
 export class ParqueaderoFiltersDto {
-  constructor({ activo, socioId, page = 1, limit = 10 }) {
+  constructor({
+    activo,
+    socioId,
+    page = 1,
+    limit = 10,
+    includeInactive = false,
+  }) {
     this.where = {};
 
-    if (activo !== undefined) {
-      this.where.activo = activo === "true";
+    if (!includeInactive) {
+      if (activo !== undefined) {
+        this.where.activo = activo === "true";
+      } else {
+        this.where.activo = true;
+      }
+    } else {
+      if (activo !== undefined) {
+        this.where.activo = activo === "true";
+      }
     }
 
     if (socioId) {

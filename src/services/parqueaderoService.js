@@ -25,8 +25,21 @@ export class ParqueaderoService {
   async getAllParqueaderos(queryParams) {
     const filters = new ParqueaderoFiltersDto(queryParams);
 
-    const parqueaderos = await this.parqueaderoRepository.findAll(filters);
-    const total = await this.parqueaderoRepository.count(filters.where);
+    const includeInactive = queryParams.includeInactive === "true";
+
+    let parqueaderos, total;
+
+    if (includeInactive) {
+      parqueaderos = await this.parqueaderoRepository.findAllIncludingInactive(
+        filters
+      );
+      total = await this.parqueaderoRepository.countIncludingInactive(
+        filters.where
+      );
+    } else {
+      parqueaderos = await this.parqueaderoRepository.findAll(filters);
+      total = await this.parqueaderoRepository.count(filters.where);
+    }
 
     return {
       parqueaderos: parqueaderos.map((p) => p.toResponse()),
@@ -84,7 +97,6 @@ export class ParqueaderoService {
   async createParqueadero(createData) {
     const createDto = new CreateParqueaderoDto(createData);
 
-    // Validar que el socio existe y tiene el rol correcto
     const socio = await this.userRepository.findById(createDto.socioId);
     if (!socio) {
       throw new SocioNotFoundException();
@@ -94,7 +106,6 @@ export class ParqueaderoService {
       throw new InvalidSocioRoleException();
     }
 
-    // Validar que no existe un parqueadero con el mismo nombre
     const existingParqueadero = await this.parqueaderoRepository.findByName(
       createDto.nombre
     );
@@ -113,13 +124,12 @@ export class ParqueaderoService {
   async updateParqueadero(id, updateData) {
     const updateDto = new UpdateParqueaderoDto(updateData);
 
-    // Verificar que el parqueadero existe
-    const existingParqueadero = await this.parqueaderoRepository.findById(id);
+    const existingParqueadero =
+      await this.parqueaderoRepository.findByIdIncludingInactive(id);
     if (!existingParqueadero) {
       throw new ParqueaderoNotFoundException();
     }
 
-    // Si se está cambiando el socio, validar el nuevo socio
     if (
       updateDto.socioId &&
       updateDto.socioId !== existingParqueadero.socioId
@@ -134,7 +144,6 @@ export class ParqueaderoService {
       }
     }
 
-    // Si se está cambiando el nombre, validar que no haya duplicados
     if (updateDto.nombre && updateDto.nombre !== existingParqueadero.nombre) {
       const duplicateParqueadero = await this.parqueaderoRepository.findByName(
         updateDto.nombre,
@@ -159,20 +168,19 @@ export class ParqueaderoService {
   }
 
   async deleteParqueadero(id) {
-    const existingParqueadero = await this.parqueaderoRepository.findById(id);
+    const existingParqueadero =
+      await this.parqueaderoRepository.findByIdIncludingInactive(id);
 
     if (!existingParqueadero) {
       throw new ParqueaderoNotFoundException();
     }
 
-    // Verificar si el parqueadero ya está inactivo (ya eliminado)
     if (!existingParqueadero.activo) {
       throw new ParqueaderoAlreadyExistsException(
         "El parqueadero ya está eliminado"
       );
     }
 
-    // Verificar si hay vehículos actualmente parqueados
     const vehiculosActivos =
       await this.parqueaderoRepository.countActiveVehicles(id);
 
@@ -182,7 +190,6 @@ export class ParqueaderoService {
       );
     }
 
-    // Eliminación lógica: marcar como inactivo
     const deletedParqueadero = await this.parqueaderoRepository.update(id, {
       activo: false,
     });
@@ -196,7 +203,8 @@ export class ParqueaderoService {
   }
 
   async toggleParqueaderoStatus(id) {
-    const existingParqueadero = await this.parqueaderoRepository.findById(id);
+    const existingParqueadero =
+      await this.parqueaderoRepository.findByIdIncludingInactive(id);
 
     if (!existingParqueadero) {
       throw new ParqueaderoNotFoundException();

@@ -16,26 +16,46 @@ export class ParqueaderoRepository {
   }
 
   async findAll(filters) {
-    const parqueaderosData = await prisma.parqueadero.findMany({
-      where: filters.where,
+    const whereClause = {
+      activo: true,
+      ...filters.where,
+    };
+
+    const parqueaderos = await prisma.parqueadero.findMany({
+      where: whereClause,
+      include: {
+        socio: {
+          select: {
+            id: true,
+            fullname: true,
+            email: true,
+          },
+        },
+      },
       skip: filters.skip,
       take: filters.limit,
-      include: this.includeOptions,
       orderBy: {
         createdAt: "desc",
       },
     });
 
-    return parqueaderosData.map((data) => new Parqueadero(data));
+    return parqueaderos.map((p) => new Parqueadero(p));
   }
 
-  async count(where = {}) {
-    return await prisma.parqueadero.count({ where });
+  async count(whereClause) {
+    const finalWhere = {
+      activo: true,
+      ...whereClause,
+    };
+
+    return await prisma.parqueadero.count({
+      where: finalWhere,
+    });
   }
 
   async findById(id) {
     const parqueaderoData = await prisma.parqueadero.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: parseInt(id), activo: true },
       include: {
         socio: {
           select: {
@@ -53,14 +73,13 @@ export class ParqueaderoRepository {
   }
 
   async findBySocioId(socioId, activo) {
-    const where = { socioId: parseInt(socioId) };
+    const whereClause = {
+      socioId: parseInt(socioId),
+      activo: activo !== undefined ? activo === "true" : true,
+    };
 
-    if (activo !== undefined) {
-      where.activo = activo === "true";
-    }
-
-    const parqueaderosData = await prisma.parqueadero.findMany({
-      where,
+    const parqueaderos = await prisma.parqueadero.findMany({
+      where: whereClause,
       include: {
         socio: {
           select: {
@@ -75,7 +94,7 @@ export class ParqueaderoRepository {
       },
     });
 
-    return parqueaderosData.map((data) => new Parqueadero(data));
+    return parqueaderos.map((p) => new Parqueadero(p)); // <- Agregar esta línea
   }
 
   async findByName(nombre, excludeId = null) {
@@ -95,6 +114,53 @@ export class ParqueaderoRepository {
         parqueaderoId: parseInt(parqueaderoId),
         activo: true, // Vehículos que están actualmente dentro
       },
+    });
+  }
+
+  async findByIdIncludingInactive(id) {
+    const parqueaderoData = await prisma.parqueadero.findUnique({
+      where: { id: parseInt(id) },
+      include: {
+        socio: {
+          select: {
+            id: true,
+            fullname: true,
+            email: true,
+            role: true,
+            createdAt: true,
+          },
+        },
+      },
+    });
+
+    return parqueaderoData ? new Parqueadero(parqueaderoData) : null;
+  }
+
+  async findAllIncludingInactive(filters) {
+    const parqueaderos = await prisma.parqueadero.findMany({
+      where: filters.where,
+      include: {
+        socio: {
+          select: {
+            id: true,
+            fullname: true,
+            email: true,
+          },
+        },
+      },
+      skip: filters.skip,
+      take: filters.limit,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return parqueaderos.map((p) => new Parqueadero(p)); // <- Agregar esta línea
+  }
+
+  async countIncludingInactive(whereClause) {
+    return await prisma.parqueadero.count({
+      where: whereClause,
     });
   }
 
